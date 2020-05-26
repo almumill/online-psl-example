@@ -1,0 +1,31 @@
+
+predicates:
+    rated/2: closed
+    rating/2: open
+    sim_items/2: closed
+    sim_users/2: closed
+    user/1: closed
+    item/1: closed
+    avg_item_rating/1: closed
+    avg_user_rating/1: closed
+    sim_content_items/2: closed
+    sim_content_users/2: closed
+
+observations:
+    rated: ../data/fold0/rated_obs.txt
+    rating: ../data/fold0/rating_obs.txt
+    sim_items: ../data/fold0/sim_cosine_items_obs.txt
+    sim_users: ../data/fold0/sim_cosine_users_obs.txt
+    user: ../data/fold0/user_obs.txt
+    item: ../data/fold0/item_obs.txt
+    avg_item_rating: ../data/fold0/avg_item_rating_obs.txt
+    avg_user_rating: ../data/fold0/avg_user_rating_obs.txt
+    sim_content_items: ../data/fold0/sim_content_items_obs.txt
+    sim_content_users: ../data/fold0/sim_content_users_obs.txt
+
+targets:
+    rating: ../data/fold0/rating_targets.txt
+
+truth:
+    rating: ../data/fold0/rating_truth.txt
+    

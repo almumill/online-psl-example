@@ -8,8 +8,9 @@ readonly PSL_VERSION='2.2.1'
 readonly JAR_PATH="./psl-cli-${PSL_VERSION}.jar"
 readonly FETCH_DATA_SCRIPT='../data/fetchData.sh'
 readonly BASE_NAME='movielens'
+readonly FOLD_COUNT=8
 
-readonly ADDITIONAL_PSL_OPTIONS=''
+readonly ADDITIONAL_PSL_OPTIONS='--postgres psl'
 readonly ADDITIONAL_EVAL_OPTIONS='--infer --eval org.linqs.psl.evaluation.statistics.ContinuousEvaluator'
 
 function main() {
@@ -36,9 +37,12 @@ function getData() {
 }
 
 function runEvaluation() {
-   echo "Running PSL Inference"
-
-   java -jar "${JAR_PATH}" --model "${BASE_NAME}.psl" --data "${BASE_NAME}.data" --output inferred-predicates ${ADDITIONAL_EVAL_OPTIONS} ${ADDITIONAL_PSL_OPTIONS} "$@"
+   for (( i=0; i<${FOLD_COUNT}; i++ ))
+      do
+         echo "Running PSL Inference on fold ${i}"
+         java -jar "${JAR_PATH}" --model "${BASE_NAME}.psl" --data "${BASE_NAME}-fold${i}.data" --output inferred-predicates ${ADDITIONAL_EVAL_OPTIONS} ${ADDITIONAL_PSL_OPTIONS} "$@"
+         cp inferred-predicates/RATING.txt inferred-predicates/RATING_fold_$i.txt
+      done
    if [[ "$?" -ne 0 ]]; then
       echo 'ERROR: Failed to run infernce'
       exit 70
