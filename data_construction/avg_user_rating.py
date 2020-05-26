@@ -14,7 +14,7 @@ def avg_user_rating_predicate(observed_ratings_df, setting='eval'):
     observed_ratings_df = observed_ratings_df.reset_index()
     observed_ratings_df = observed_ratings_df.set_index('userId')
 
-    # calculate the mean within each movie
+    # calculate the mean within each user
     for userId in observed_ratings_df.index.unique():
         df_temp = observed_ratings_df[observed_ratings_df.index == userId]
         user_avg = df_temp['rating'].mean()

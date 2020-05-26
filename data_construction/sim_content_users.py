@@ -25,8 +25,6 @@ def sim_content_users_predicate(user_df, setting = 'eval'):
     indices = user_df.index
     # pairwise comparison of every user for now
     for x in range(len(indices)):
-        if x % 100:
-            print("did user " + str(x))
         x_similarities = []
 
         for y in range(len(indices)):
@@ -35,5 +33,5 @@ def sim_content_users_predicate(user_df, setting = 'eval'):
         # sort similarities and pick the block_size highest
         sims = np.argsort(x_similarities)
         sims = sims[::-1]
-        for y in range(min(25, len(indices))):
+        for y in range(len(indices)):
             handle.write(str(indices[x]) + "\t" + str(indices[sims[y]]) + "\t" + str(x_similarities[sims[y]]) + "\n")
